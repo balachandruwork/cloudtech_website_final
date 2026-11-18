@@ -54,22 +54,14 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link
               to={ROUTES.HOME}
-              className="inline-flex items-center gap-2.5 mb-4 focus-visible:outline-2 focus-visible:outline-primary-500 rounded-md"
+              className="inline-flex items-center bg-white rounded-xl px-3 py-1.5 mb-4 focus-visible:outline-2 focus-visible:outline-primary-500 shadow-sm"
               aria-label="Cloud Tech Home"
             >
-              <div className="w-9 h-9 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" aria-hidden="true">
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor" />
-                </svg>
-              </div>
-              <div>
-                <div className="font-display font-bold text-xl text-white leading-none">
-                  CLOUD <span className="text-primary-400">TECH</span>
-                </div>
-                <div className="text-[9px] tracking-[0.15em] text-dark-400 uppercase font-medium">
-                  Laptop Rental Service
-                </div>
-              </div>
+              <img
+                src="/assets/aistudio/New_Logo_31ad2fb6.png"
+                alt="Cloud Tech — Rent, Buy, Service Laptops & Desktops"
+                className="h-11 w-auto object-contain"
+              />
             </Link>
 
             <p className="text-sm text-dark-400 leading-relaxed max-w-sm mb-6">

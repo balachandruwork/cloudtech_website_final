@@ -1,4 +1,12 @@
 import type { RentalProduct } from '@/types/product.types';
+import dellLatitudeImg from '@/assets/images/dell_latitude_laptop_1794999745585.jpg';
+import hpElitebookImg from '@/assets/images/hp_elitebook_laptop_1794999746500.jpg';
+import lenovoThinkpadImg from '@/assets/images/lenovo_thinkpad_laptop_1794999746552.jpg';
+import macbookAirImg from '@/assets/images/macbook_air_laptop_1794999747306.jpg';
+import macbookProImg from '@/assets/images/macbook_pro_laptop_1794999747254.jpg';
+import asusGamingImg from '@/assets/images/asus_gaming_laptop_1794999748669.jpg';
+import hpElitedeskImg from '@/assets/images/hp_elitedesk_desktop_1794999748062.jpg';
+import dellOptiplexImg from '@/assets/images/dell_optiplex_desktop_1794999748827.jpg';
 
 export const RENTAL_PRODUCTS: RentalProduct[] = [
   // Laptops
@@ -10,8 +18,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Business-grade laptop perfect for office and field use.',
     description: 'The Dell Latitude 5540 is a reliable business laptop with Intel Core i5 processor, ideal for corporate users, remote workers, and project-based rentals.',
     specs: { processor: 'Intel Core i5-13th Gen', ram: '16 GB DDR4', storage: '512 GB SSD', display: '15.6" FHD IPS', os: 'Windows 11 Pro', weight: '1.78 kg' },
-    images: ['https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80',
+    images: [dellLatitudeImg],
+    thumbnail: dellLatitudeImg,
     pricing: { daily: 400, weekly: 1800, monthly: 3000, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: true,
@@ -27,8 +35,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Premium business laptop with enterprise security features.',
     description: 'HP EliteBook 840 G10 is an enterprise-grade laptop with military-grade durability, fingerprint reader, and HP Wolf Security.',
     specs: { processor: 'Intel Core i7-13th Gen', ram: '16 GB DDR5', storage: '512 GB NVMe SSD', display: '14" FHD IPS', os: 'Windows 11 Pro', weight: '1.42 kg' },
-    images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80',
+    images: [hpElitebookImg],
+    thumbnail: hpElitebookImg,
     pricing: { daily: 500, weekly: 2200, monthly: 3500, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: true,
@@ -44,8 +52,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Iconic ThinkPad reliability for professionals.',
     description: 'Lenovo ThinkPad E15 Gen 4 with AMD Ryzen processor offers exceptional keyboard, security, and corporate software compatibility.',
     specs: { processor: 'AMD Ryzen 5 5625U', ram: '16 GB DDR4', storage: '512 GB SSD', display: '15.6" FHD IPS', os: 'Windows 11 Pro', weight: '1.87 kg' },
-    images: ['https://images.unsplash.com/photo-1504707748692-419802cf939d?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1504707748692-419802cf939d?auto=format&fit=crop&w=900&q=80',
+    images: [lenovoThinkpadImg],
+    thumbnail: lenovoThinkpadImg,
     pricing: { daily: 450, weekly: 2000, monthly: 3200, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: false,
@@ -62,8 +70,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Ultra-light MacBook Air with Apple M2 chip.',
     description: 'MacBook Air with M2 chip — thin, lightweight, and incredibly powerful with all-day battery life. Perfect for creative professionals and developers.',
     specs: { processor: 'Apple M2 (8-core CPU)', ram: '8 GB Unified Memory', storage: '256 GB SSD', display: '13.6" Liquid Retina', os: 'macOS Ventura', weight: '1.24 kg' },
-    images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80',
+    images: [macbookAirImg],
+    thumbnail: macbookAirImg,
     pricing: { daily: 600, weekly: 2800, monthly: 3500, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: true,
@@ -79,8 +87,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Pro-grade MacBook for developers and content creators.',
     description: 'MacBook Pro with M3 chip offers professional-grade performance for video editing, software development, 3D rendering, and creative work.',
     specs: { processor: 'Apple M3 (8-core CPU, 10-core GPU)', ram: '16 GB Unified Memory', storage: '512 GB SSD', display: '14" Liquid Retina XDR', os: 'macOS Sonoma', weight: '1.61 kg' },
-    images: ['https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=900&q=80',
+    images: [macbookProImg],
+    thumbnail: macbookProImg,
     pricing: { daily: 850, weekly: 4000, monthly: 5000, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: true,
@@ -97,8 +105,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'High-performance gaming laptop for events and gaming cafes.',
     description: 'ASUS ROG Strix G15 with RTX 4060 GPU — perfect for gaming tournaments, event centers, product demos, and gaming café setups.',
     specs: { processor: 'AMD Ryzen 7 7745HX', ram: '16 GB DDR5', storage: '1 TB NVMe SSD', display: '15.6" FHD 144Hz', graphics: 'NVIDIA RTX 4060 8GB', os: 'Windows 11 Home' },
-    images: ['/images/products/laptops/asus-rog.webp'],
-    thumbnail: '/images/products/laptops/asus-rog.webp',
+    images: [asusGamingImg],
+    thumbnail: asusGamingImg,
     pricing: { daily: 1500, weekly: 6500, monthly: 14999, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: true,
@@ -115,8 +123,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Compact business desktop for office deployments.',
     description: 'HP EliteDesk 800 G9 Mini Desktop — tiny form factor, full business performance. Ideal for office setups, exam centers, and corporate deployments.',
     specs: { processor: 'Intel Core i5-12500', ram: '16 GB DDR4', storage: '512 GB SSD', os: 'Windows 11 Pro' },
-    images: ['https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=900&q=80',
+    images: [hpElitedeskImg],
+    thumbnail: hpElitedeskImg,
     pricing: { daily: 300, weekly: 1200, monthly: 2000, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: false,
@@ -132,8 +140,8 @@ export const RENTAL_PRODUCTS: RentalProduct[] = [
     shortDescription: 'Reliable OptiPlex desktop for enterprise deployments.',
     description: 'Dell OptiPlex 7010 SFF — the most trusted name in enterprise desktop computing. Perfect for bulk office setups, call centers, and data entry.',
     specs: { processor: 'Intel Core i5-13500', ram: '16 GB DDR4', storage: '512 GB SSD', os: 'Windows 11 Pro' },
-    images: ['https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=900&q=80',
+    images: [dellOptiplexImg],
+    thumbnail: dellOptiplexImg,
     pricing: { daily: 350, weekly: 1400, monthly: 2200, minimumPeriod: '1 day' },
     isAvailable: true,
     isFeatured: false,

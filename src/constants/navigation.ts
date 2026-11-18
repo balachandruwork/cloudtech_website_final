@@ -4,8 +4,6 @@ import type { NavItem, FooterColumn } from '@/types/navigation.types';
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: ROUTES.HOME },
   { label: 'About', href: ROUTES.ABOUT },
-  { label: 'Rental', href: ROUTES.RENTAL, badge: 'Popular' },
-  { label: 'Sales', href: ROUTES.SALES },
   { label: 'Services', href: ROUTES.SERVICES },
   { label: 'Corporate', href: ROUTES.CORPORATE },
   { label: 'Blog', href: ROUTES.BLOG },

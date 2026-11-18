@@ -1,4 +1,11 @@
 import type { Product } from '@/types/product.types';
+import dellInspironImg from '@/assets/images/dell_inspiron_laptop_1794999747262.jpg';
+import hpElitebookImg from '@/assets/images/hp_elitebook_laptop_1794999746500.jpg';
+import lenovoThinkpadImg from '@/assets/images/lenovo_thinkpad_laptop_1794999746552.jpg';
+import macbookAirImg from '@/assets/images/macbook_air_laptop_1794999747306.jpg';
+import asusGamingImg from '@/assets/images/asus_gaming_laptop_1794999748669.jpg';
+import dellLatitudeImg from '@/assets/images/dell_latitude_laptop_1794999745585.jpg';
+import dellOptiplexImg from '@/assets/images/dell_optiplex_desktop_1794999748827.jpg';
 
 export const PRODUCTS: Product[] = [
   // New Laptops
@@ -11,8 +18,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Everyday laptop for professionals and students.',
     description: 'The Dell Inspiron 15 features 13th Gen Intel processor, 15.6" FHD display, and all-day battery life.',
     specs: { processor: 'Intel Core i5-1335U', ram: '16 GB DDR4', storage: '512 GB SSD', display: '15.6" FHD', os: 'Windows 11 Home', warranty: '1 Year Onsite' },
-    images: ['https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80',
+    images: [dellInspironImg],
+    thumbnail: dellInspironImg,
     price: 62990,
     originalPrice: 72990,
     discountPercent: 14,
@@ -31,8 +38,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Slim and stylish laptop for everyday productivity.',
     description: 'HP Pavilion 15 with Intel Core i5, a Full HD micro-edge display, and HP Fast Charge technology.',
     specs: { processor: 'Intel Core i5-1335U', ram: '8 GB DDR4', storage: '512 GB SSD', display: '15.6" FHD IPS', os: 'Windows 11 Home', warranty: '1 Year Onsite' },
-    images: ['https://images.unsplash.com/photo-1504707748692-419802cf939d?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1504707748692-419802cf939d?auto=format&fit=crop&w=900&q=80',
+    images: [hpElitebookImg],
+    thumbnail: hpElitebookImg,
     price: 58990,
     originalPrice: 64990,
     discountPercent: 9,
@@ -51,8 +58,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Thin and light laptop with great display.',
     description: 'Lenovo IdeaPad Slim 5 with AMD Ryzen processor and OLED display option for vibrant visuals.',
     specs: { processor: 'AMD Ryzen 5 7530U', ram: '16 GB LPDDR4X', storage: '512 GB SSD', display: '14" FHD IPS', os: 'Windows 11 Home', warranty: '1 Year Carry-in' },
-    images: ['https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80',
+    images: [lenovoThinkpadImg],
+    thumbnail: lenovoThinkpadImg,
     price: 54990,
     isInStock: true,
     isFeatured: false,
@@ -70,8 +77,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'The most capable MacBook Air ever.',
     description: 'MacBook Air with M2 chip — completely redesigned with a fanless architecture and all-day battery life.',
     specs: { processor: 'Apple M2 (8-core)', ram: '8 GB', storage: '256 GB SSD', display: '13.6" Liquid Retina', os: 'macOS Sonoma', warranty: '1 Year Apple Warranty' },
-    images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80',
+    images: [macbookAirImg],
+    thumbnail: macbookAirImg,
     price: 114900,
     isInStock: true,
     isFeatured: true,
@@ -89,8 +96,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Military-grade durable gaming laptop.',
     description: 'ASUS TUF Gaming F15 built to military-grade MIL-STD-810H standards with RTX 4060 and 144Hz display.',
     specs: { processor: 'Intel Core i5-13500H', ram: '16 GB DDR5', storage: '512 GB NVMe', display: '15.6" FHD 144Hz', graphics: 'NVIDIA RTX 4060', os: 'Windows 11 Home', warranty: '2 Years' },
-    images: ['https://images.unsplash.com/photo-1603481546238-487240415921?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1603481546238-487240415921?auto=format&fit=crop&w=900&q=80',
+    images: [asusGamingImg],
+    thumbnail: asusGamingImg,
     price: 82990,
     originalPrice: 94990,
     discountPercent: 13,
@@ -110,8 +117,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Grade A refurbished business laptop with warranty.',
     description: 'Certified Grade A refurbished Dell Latitude 5420. Tested to manufacturer standards with fresh Windows installation and 6-month Cloud Tech warranty.',
     specs: { processor: 'Intel Core i5-11th Gen', ram: '8 GB DDR4', storage: '256 GB SSD', display: '14" FHD', os: 'Windows 11 Pro', warranty: '6 Months Cloud Tech' },
-    images: ['https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=900&q=80',
+    images: [dellLatitudeImg],
+    thumbnail: dellLatitudeImg,
     price: 28999,
     originalPrice: 55000,
     discountPercent: 47,
@@ -130,8 +137,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Compact business desktop for productive office teams.',
     description: 'Dell OptiPlex desktop with dependable business performance and a compact, easy-to-service design.',
     specs: { processor: 'Intel Core i5-13500', ram: '16 GB DDR4', storage: '512 GB SSD', os: 'Windows 11 Pro', warranty: '1 Year Onsite' },
-    images: ['https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=900&q=80'],
-    thumbnail: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&w=900&q=80',
+    images: [dellOptiplexImg],
+    thumbnail: dellOptiplexImg,
     price: 48990,
     isInStock: true,
     isFeatured: true,

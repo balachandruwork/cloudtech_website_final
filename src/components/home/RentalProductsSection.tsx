@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Cpu, HardDrive, MonitorSmartphone, Truck } from 'lucide-react';
+import { Cpu, HardDrive, Truck } from 'lucide-react';
 import { SectionContainer } from '@/components/common/SectionContainer';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Button } from '@/components/ui/button';
@@ -22,12 +22,9 @@ function RentalProductCard({ product }: { product: RentalProduct }) {
         <img
           src={product.thumbnail}
           alt={product.name}
+          referrerPolicy="no-referrer"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(event) => { event.currentTarget.src = 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80'; }}
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <MonitorSmartphone className="h-16 w-16 text-white/60 drop-shadow" aria-hidden="true" />
-        </div>
         <div className="absolute top-3 left-3 flex gap-2">
           <Badge variant="primary">{product.brand}</Badge>
           {!product.isAvailable && <Badge variant="danger">Unavailable</Badge>}

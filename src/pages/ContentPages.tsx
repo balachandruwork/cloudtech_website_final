@@ -8,16 +8,24 @@ import { BLOG_POSTS } from '@/data/blog.data';
 import { COMPANY } from '@/constants/company';
 import { ROUTES } from '@/constants/routes';
 import { formatPrice } from '@/lib/utils';
+import dellLatitudeImg from '@/assets/images/dell_latitude_laptop_1794999745585.jpg';
+import macbookAirImg from '@/assets/images/macbook_air_laptop_1794999747306.jpg';
+import accKeyboardMouseImg from '@/assets/images/acc_keyboard_mouse_1794999748738.jpg';
+import accBusinessMonitorImg from '@/assets/images/acc_business_monitor_1794999749946.jpg';
+import accHeadsetWebcamImg from '@/assets/images/acc_headset_webcam_1794999749613.jpg';
+import accRouterSwitchImg from '@/assets/images/acc_router_switch_1794999750408.jpg';
+import accStorageDriveImg from '@/assets/images/acc_storage_drive_1794999751102.jpg';
+import accCablesPowerImg from '@/assets/images/acc_cables_power_1794999750639.jpg';
 
 const IMAGES = {
   team: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80',
-  rental: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=80',
-  sales: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80',
+  rental: dellLatitudeImg,
+  sales: macbookAirImg,
   service: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
   corporate: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80',
   blog: 'https://images.unsplash.com/photo-1516321310764-8d9c8bc0c3d2?auto=format&fit=crop&w=1200&q=80',
   contact: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-  accessories: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=1200&q=80',
+  accessories: accKeyboardMouseImg,
 };
 
 function Hero({ eyebrow, title, description, image }: { eyebrow: string; title: string; description: string; image: string }) {
@@ -36,7 +44,7 @@ const serviceItems = [
 ];
 
 function CatalogCard({ name, description, image, detail }: { name: string; description: string; image: string; detail: string }) {
-  return <article className="card-base overflow-hidden group"><img src={image} alt={name} className="w-full aspect-[16/9] object-cover group-hover:scale-105 transition-transform duration-500" onError={(event) => { event.currentTarget.src = IMAGES.rental; }} /><div className="p-5"><h3 className="text-lg">{name}</h3><p className="mt-2 text-sm">{description}</p><p className="mt-4 font-bold text-primary-700">{detail}</p><Link to={ROUTES.CONTACT} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-600">Enquire now <ArrowRight className="h-4 w-4" /></Link></div></article>;
+  return <article className="card-base overflow-hidden group"><img src={image} alt={name} referrerPolicy="no-referrer" className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" onError={(event) => { event.currentTarget.src = IMAGES.rental; }} /><div className="p-5"><h3 className="text-lg">{name}</h3><p className="mt-2 text-sm">{description}</p><p className="mt-4 font-bold text-primary-700">{detail}</p><Link to={ROUTES.CONTACT} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-600">Enquire now <ArrowRight className="h-4 w-4" /></Link></div></article>;
 }
 
 export function AboutPage() { return <><SEO title="About Cloud Tech" canonical={ROUTES.ABOUT} /><Hero eyebrow="About us" title="A practical technology partner for Coimbatore" description="Since 2014, Cloud Tech has helped teams get the devices and IT support they need—without unnecessary complexity." image={IMAGES.team} /><section className="container-site section-py grid md:grid-cols-3 gap-6">{[['10+', 'Years serving local teams'], ['500+', 'Devices ready for deployment'], ['24 hr', 'Typical response target']].map(([value, label]) => <div className="card-base p-6" key={label}><p className="text-3xl font-bold text-primary-600">{value}</p><p className="mt-1">{label}</p></div>)}</section><section className="bg-surface"><div className="container-site section-py grid lg:grid-cols-2 gap-12"><div><p className="badge-primary">Our approach</p><h2 className="mt-4">Technology that works from day one.</h2><p className="mt-5">Every mock project starts with an honest requirement review, then we prepare equipment, install the essential software and provide support after delivery.</p></div><div className="space-y-4">{['Clear recommendations and transparent pricing', 'Tested equipment with flexible rental periods', 'One team for devices, networking and ongoing support'].map(text => <div className="flex gap-3" key={text}><CheckCircle2 className="text-primary-600 shrink-0 mt-1" /><p>{text}</p></div>)}</div></div></section><Cta /></>; }
@@ -49,7 +57,17 @@ export function ServicesPage() { return <><SEO title="IT Repair & Technical Serv
 
 export function CorporatePage() { const solutions = ['Bulk laptop and desktop rental', 'Office IT setup and relocation', 'Network planning and secure Wi-Fi', 'Dedicated AMC and managed support']; return <><SEO title="Corporate IT Solutions" canonical={ROUTES.CORPORATE} /><Hero eyebrow="Corporate solutions" title="IT that lets your team focus on the work." description="From ten devices to multi-site deployment, Cloud Tech provides a single accountable partner for your technology." image={IMAGES.corporate} /><section className="container-site section-py grid lg:grid-cols-2 gap-10 items-start"><div><h2>Built for busy operations teams</h2><p className="mt-4">Our corporate mock package includes staging, asset tagging, configuration, delivery, installation and support under one clear proposal.</p><Link to={ROUTES.CONTACT} className="inline-block mt-6"><Button>Discuss your requirement</Button></Link></div><div className="grid gap-4">{solutions.map((solution, index) => <div className="card-base p-5 flex gap-4" key={solution}><span className="bg-primary-100 text-primary-700 h-8 w-8 rounded-full flex justify-center items-center font-bold">0{index + 1}</span><p className="font-semibold text-dark-800">{solution}</p></div>)}</div></section><Cta /></>; }
 
-export function AccessoriesPage() { const items = ['Wireless keyboards', 'Business monitors', 'Headsets & webcams', 'Routers & switches', 'Storage & backup drives', 'Cables and power accessories']; return <><SEO title="Computer Accessories" canonical={ROUTES.ACCESSORIES} /><Hero eyebrow="Accessories" title="Complete every workstation." description="Essential accessories and networking equipment for efficient individual and office setups." image={IMAGES.accessories} /><section className="container-site section-py grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{items.map((item, i) => <CatalogCard key={item} name={item} description="Quality-tested equipment available with help choosing the right fit for your setup." image={`${IMAGES.accessories}&sig=${i}`} detail="Ask for pricing" />)}</section><Cta /></>; }
+export function AccessoriesPage() {
+  const items = [
+    { name: 'Wireless keyboards', image: accKeyboardMouseImg },
+    { name: 'Business monitors', image: accBusinessMonitorImg },
+    { name: 'Headsets & webcams', image: accHeadsetWebcamImg },
+    { name: 'Routers & switches', image: accRouterSwitchImg },
+    { name: 'Storage & backup drives', image: accStorageDriveImg },
+    { name: 'Cables and power accessories', image: accCablesPowerImg },
+  ];
+  return <><SEO title="Computer Accessories" canonical={ROUTES.ACCESSORIES} /><Hero eyebrow="Accessories" title="Complete every workstation." description="Essential accessories and networking equipment for efficient individual and office setups." image={IMAGES.accessories} /><section className="container-site section-py grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{items.map((item) => <CatalogCard key={item.name} name={item.name} description="Quality-tested equipment available with help choosing the right fit for your setup." image={item.image} detail="Ask for pricing" />)}</section><Cta /></>;
+}
 
 export function BlogPage() { return <><SEO title="IT Blog & Tech News" canonical={ROUTES.BLOG} /><Hero eyebrow="Cloud Tech journal" title="Useful technology advice, minus the jargon." description="Rental guides, IT planning tips and practical advice for Coimbatore businesses." image={IMAGES.blog} /><section className="container-site section-py grid md:grid-cols-2 lg:grid-cols-3 gap-6">{BLOG_POSTS.map(post => <Link to={`/blog/${post.slug}`} key={post.id} className="card-base overflow-hidden group"><img src={post.thumbnail} alt="" className="aspect-[16/9] w-full object-cover" onError={(event) => { event.currentTarget.src = IMAGES.blog; }} /><div className="p-5"><p className="text-xs font-bold text-primary-600">{post.category}</p><h2 className="text-xl mt-2 group-hover:text-primary-600">{post.title}</h2><p className="text-sm mt-3 line-clamp-2">{post.excerpt}</p><p className="text-xs text-dark-400 mt-4">{post.readTime} · {post.publishedAt}</p></div></Link>)}</section></>; }
 

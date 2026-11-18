@@ -30,23 +30,14 @@ export function Header() {
             {/* Logo */}
             <Link
               to={ROUTES.HOME}
-              className="flex-shrink-0 flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:rounded-md"
+              className="flex-shrink-0 flex items-center focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:rounded-md"
               aria-label="Cloud Tech — Home"
             >
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" aria-hidden="true">
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor" fillOpacity="0.9" />
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" stroke="white" strokeWidth="0.5" fill="none" />
-                </svg>
-              </div>
-              <div className="leading-none">
-                <div className="font-display font-bold text-lg text-navy-600 leading-none">
-                  CLOUD <span className="text-dark-900">TECH</span>
-                </div>
-                <div className="text-[9px] tracking-[0.15em] text-dark-400 uppercase font-medium">
-                  Laptop Rental Service
-                </div>
-              </div>
+              <img
+                src="/assets/aistudio/New_Logo_31ad2fb6.png"
+                alt="Cloud Tech — Rent, Buy, Service Laptops & Desktops"
+                className="h-10 sm:h-11 w-auto object-contain"
+              />
             </Link>
 
             {/* Desktop Nav */}
@@ -157,19 +148,14 @@ export function Header() {
                 <Link
                   to={ROUTES.HOME}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2"
+                  className="flex items-center"
                   aria-label="Cloud Tech Home"
                 >
-                  <div className="w-7 h-7 bg-primary-600 rounded-md flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 text-white" aria-hidden="true">
-                      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-base text-navy-600">
-                      CLOUD <span className="text-dark-900">TECH</span>
-                    </div>
-                  </div>
+                  <img
+                    src="/assets/aistudio/New_Logo_31ad2fb6.png"
+                    alt="Cloud Tech — Rent, Buy, Service Laptops & Desktops"
+                    className="h-9 w-auto object-contain"
+                  />
                 </Link>
                 <button
                   onClick={() => setMobileOpen(false)}
