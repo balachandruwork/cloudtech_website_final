@@ -1,0 +1,121 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Shared helpers
+    function isValidId(id) {
+      return id is string && id.size() >= 4 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidNewsletterKey(key) {
+      return key is string && key.size() == 68 && key.matches('^sub_[a-f0-9]{64}$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn()
+        && request.auth.token.email == 'balachandruwork@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    // Entity validators
+    function isValidContactEnquiry(data) {
+      return data.keys().hasAll(['referenceId', 'name', 'phone', 'email', 'service', 'message', 'consent', 'createdAt'])
+        && data.keys().hasOnly(['referenceId', 'name', 'company', 'phone', 'email', 'service', 'message', 'consent', 'createdAt'])
+        && data.referenceId is string && data.referenceId.size() >= 4 && data.referenceId.size() <= 64
+        && data.referenceId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.name is string && data.name.size() >= 2 && data.name.size() <= 100
+        && (!('company' in data) || (data.company is string && data.company.size() <= 200))
+        && data.phone is string && data.phone.size() >= 10 && data.phone.size() <= 15
+        && data.phone.matches('^[+\\d\\s\\-()]+$')
+        && data.email is string && data.email.size() >= 5 && data.email.size() <= 200
+        && data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && data['service'] is string && data['service'].size() >= 1 && data['service'].size() <= 64
+        && data.message is string && data.message.size() >= 10 && data.message.size() <= 2000
+        && data.consent is bool && data.consent == true
+        && data.createdAt is timestamp && data.createdAt == request.time;
+    }
+
+    function isValidQuoteRequest(data) {
+      return data.keys().hasAll(['quoteId', 'name', 'phone', 'email', 'deviceType', 'quantity', 'duration', 'createdAt'])
+        && data.keys().hasOnly(['quoteId', 'name', 'company', 'phone', 'email', 'deviceType', 'quantity', 'duration', 'requirements', 'createdAt'])
+        && data.quoteId is string && data.quoteId.size() >= 4 && data.quoteId.size() <= 64
+        && data.quoteId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.name is string && data.name.size() >= 2 && data.name.size() <= 100
+        && (!('company' in data) || (data.company is string && data.company.size() <= 200))
+        && data.phone is string && data.phone.size() >= 10 && data.phone.size() <= 15
+        && data.phone.matches('^[+\\d\\s\\-()]+$')
+        && data.email is string && data.email.size() >= 5 && data.email.size() <= 200
+        && data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && data.deviceType is string && data.deviceType.size() >= 1 && data.deviceType.size() <= 120
+        && data.quantity is int && data.quantity >= 1 && data.quantity <= 10000
+        && data.duration is string && data.duration.size() >= 1 && data.duration.size() <= 64
+        && (!('requirements' in data) || (data.requirements is string && data.requirements.size() <= 1000))
+        && data.createdAt is timestamp && data.createdAt == request.time;
+    }
+
+    function isValidNewsletterIndex(data) {
+      return data.keys().hasAll(['active', 'createdAt'])
+        && data.keys().hasOnly(['active', 'createdAt'])
+        && data.active is bool && data.active == true
+        && data.createdAt is timestamp && data.createdAt == request.time;
+    }
+
+    function isValidNewsletterSubscriber(data) {
+      return data.keys().hasAll(['email', 'source', 'createdAt'])
+        && data.keys().hasOnly(['email', 'source', 'createdAt'])
+        && data.email is string && data.email.size() >= 5 && data.email.size() <= 200
+        && data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && data.source is string && data.source.size() >= 1 && data.source.size() <= 40
+        && data.createdAt is timestamp && data.createdAt == request.time;
+    }
+
+    // Contact Enquiries (PII isolated to admin reads; public append-only create)
+    match /contactEnquiries/{enquiryId} {
+      allow get, list: if isAdmin();
+      allow create: if isValidId(enquiryId)
+        && isValidContactEnquiry(incoming())
+        && incoming().referenceId == enquiryId;
+      allow update, delete: if false;
+    }
+
+    // Quote Requests (PII isolated to admin reads; public append-only create)
+    match /quoteRequests/{quoteId} {
+      allow get, list: if isAdmin();
+      allow create: if isValidId(quoteId)
+        && isValidQuoteRequest(incoming())
+        && incoming().quoteId == quoteId;
+      allow update, delete: if false;
+    }
+
+    // Newsletter Deduplication Index (no PII; single-doc get allowed for duplicate check)
+    match /newsletterIndex/{subscriberKey} {
+      allow get: if isValidNewsletterKey(subscriberKey);
+      allow list: if false;
+      allow create: if isValidNewsletterKey(subscriberKey)
+        && isValidNewsletterIndex(incoming())
+        && existsAfter(/databases/$(database)/documents/newsletterSubscribers/$(subscriberKey));
+      allow update, delete: if false;
+    }
+
+    // Newsletter Subscribers (PII isolated to admin reads; atomic create with index)
+    match /newsletterSubscribers/{subscriberKey} {
+      allow get, list: if isAdmin();
+      allow create: if isValidNewsletterKey(subscriberKey)
+        && isValidNewsletterSubscriber(incoming())
+        && existsAfter(/databases/$(database)/documents/newsletterIndex/$(subscriberKey));
+      allow update, delete: if false;
+    }
+  }
+}

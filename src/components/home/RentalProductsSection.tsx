@@ -6,7 +6,12 @@ import { SectionContainer } from '@/components/common/SectionContainer';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { RENTAL_PRODUCTS, RENTAL_CATEGORIES } from '@/data/rentalProducts.data';
+import { ProductDetailModal } from '@/components/catalog/ProductDetailModal';
+import {
+  MIN_MONTHLY_RENTAL,
+  RENTAL_CATEGORIES,
+  RENTAL_PRODUCTS,
+} from '@/data/rentalProducts.data';
 import { ROUTES } from '@/constants/routes';
 import { getWhatsAppUrl, WHATSAPP_MESSAGES } from '@/constants/company';
 import { formatPrice } from '@/lib/utils';
@@ -14,11 +19,22 @@ import { fadeUp, staggerFast } from '@/lib/animations';
 import { cn } from '@/lib/cn';
 import type { RentalProduct } from '@/types/product.types';
 
-function RentalProductCard({ product }: { product: RentalProduct }) {
+function RentalProductCard({
+  product,
+  onSelect,
+}: {
+  product: RentalProduct;
+  onSelect: (product: RentalProduct) => void;
+}) {
   return (
     <div className="card-base card-hover flex flex-col overflow-hidden group">
       {/* Image */}
-      <div className="relative aspect-[4/3] bg-dark-50 overflow-hidden">
+      <button
+        type="button"
+        onClick={() => onSelect(product)}
+        className="relative aspect-[4/3] bg-dark-50 overflow-hidden text-left cursor-pointer"
+        aria-label={`View specifications for ${product.name}`}
+      >
         <img
           src={product.thumbnail}
           alt={product.name}
@@ -38,12 +54,18 @@ function RentalProductCard({ product }: { product: RentalProduct }) {
           <Truck className="h-3 w-3" aria-hidden="true" />
           {product.deliveryTime}
         </div>
-      </div>
+      </button>
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5">
         <div className="flex-1">
-          <h3 className="font-display font-semibold text-dark-900 text-base mb-2">{product.name}</h3>
+          <button
+            type="button"
+            onClick={() => onSelect(product)}
+            className="text-left font-display font-semibold text-dark-900 hover:text-primary-600 transition-colors text-base mb-2"
+          >
+            {product.name}
+          </button>
 
           {/* Specs */}
           <div className="grid grid-cols-2 gap-1.5 mb-4">
@@ -96,7 +118,10 @@ function RentalProductCard({ product }: { product: RentalProduct }) {
               Rent Now
             </Button>
           </a>
-          <Link to={ROUTES.CONTACT} className="flex-1">
+          <Link
+            to={`${ROUTES.CONTACT}?tab=quote&device=${encodeURIComponent(product.name)}`}
+            className="flex-1"
+          >
             <Button variant="outline" size="sm" fullWidth>
               Get Quote
             </Button>
@@ -109,21 +134,20 @@ function RentalProductCard({ product }: { product: RentalProduct }) {
 
 export function RentalProductsSection() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [selectedProduct, setSelectedProduct] = useState<RentalProduct | null>(null);
 
-  const supportedProducts = RENTAL_PRODUCTS.filter((p) =>
-    ['laptop', 'desktop', 'macbook'].includes(p.category)
-  );
-  const filtered = activeCategory === 'all'
-    ? supportedProducts
-    : supportedProducts.filter((p) => p.category === activeCategory);
+  const filtered =
+    activeCategory === 'all'
+      ? RENTAL_PRODUCTS
+      : RENTAL_PRODUCTS.filter((p) => p.category === activeCategory);
 
   return (
     <SectionContainer className="bg-white">
       <SectionHeading
         eyebrow="Rental Catalog"
-        title="Rent Premium Devices"
-        titleHighlight="Starting ₹550/Month"
-        description="Flexible daily, weekly, and monthly rental plans. Free delivery and installation included. Wide range of laptops, desktops, MacBooks, and gaming devices available."
+        title="Rent Business & Pro Devices"
+        titleHighlight={`Starting ${formatPrice(MIN_MONTHLY_RENTAL)}/Month`}
+        description="Flexible daily, weekly, and monthly rental plans across laptops, MacBooks, gaming laptops, and desktops in Coimbatore."
       />
 
       {/* Category tabs */}
@@ -156,7 +180,7 @@ export function RentalProductsSection() {
       >
         {filtered.map((product) => (
           <motion.div key={product.id} variants={fadeUp}>
-            <RentalProductCard product={product} />
+            <RentalProductCard product={product} onSelect={setSelectedProduct} />
           </motion.div>
         ))}
       </motion.div>
@@ -169,6 +193,11 @@ export function RentalProductsSection() {
           </Button>
         </Link>
       </div>
+
+      <ProductDetailModal
+        target={selectedProduct ? { mode: 'rental', item: selectedProduct } : null}
+        onClose={() => setSelectedProduct(null)}
+      />
     </SectionContainer>
   );
 }

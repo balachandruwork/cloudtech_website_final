@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Laptop, Monitor, Apple, Gamepad2, Printer,
+  Laptop, Monitor, Apple, Gamepad2,
   Wrench, Wifi, ShieldCheck, Settings, Database,
-  Headphones, HardDrive, Package, Users,
+  Headphones, HardDrive, Package, Users, Layers,
 } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { SectionContainer } from '@/components/common/SectionContainer';
@@ -53,22 +53,22 @@ function ServiceCard({ icon: Icon, title, description, href, isHighlighted }: Se
 }
 
 const SERVICES = [
-  { icon: Laptop, title: 'Laptop Rental', description: 'Rent business laptops from Dell, HP, Lenovo on daily, weekly, or monthly plans.', href: ROUTES.RENTAL, isHighlighted: true },
-  { icon: Monitor, title: 'Desktop Rental', description: 'Desktop computer rentals for offices, exam centers, and events.', href: ROUTES.RENTAL },
-  { icon: Apple, title: 'MacBook Rental', description: 'Rent MacBook Air and MacBook Pro for creative professionals.', href: ROUTES.RENTAL, isHighlighted: true },
-  { icon: Gamepad2, title: 'Gaming Laptop Rental', description: 'High-performance gaming laptops for events, tournaments, and cafes.', href: ROUTES.RENTAL },
-  { icon: Laptop, title: 'Laptop Sales', description: 'New and refurbished laptops from top brands at competitive prices.', href: ROUTES.SALES },
-  { icon: Monitor, title: 'Desktop Sales', description: 'New and refurbished desktop computers with warranty.', href: ROUTES.SALES },
-  { icon: Package, title: 'Refurbished Systems', description: 'Certified Grade A refurbished laptops and desktops saving up to 60%.', href: ROUTES.SALES },
-  { icon: Printer, title: 'Printer Sales & Rental', description: 'Laser and inkjet printers for rent or purchase.', href: ROUTES.SALES },
-  { icon: Wrench, title: 'Laptop Repair', description: 'Professional laptop and desktop repair services at your doorstep.', href: ROUTES.SERVICES, isHighlighted: true },
-  { icon: ShieldCheck, title: 'Virus Removal', description: 'Malware, virus, and ransomware removal by certified technicians.', href: ROUTES.SERVICES },
-  { icon: HardDrive, title: 'Data Recovery', description: 'Professional data recovery from failed hard drives and SSDs.', href: ROUTES.SERVICES },
-  { icon: Settings, title: 'Software Installation', description: 'OS, software, and application installation and configuration.', href: ROUTES.SERVICES },
-  { icon: Wifi, title: 'Networking & Wi-Fi', description: 'Complete office networking, Wi-Fi, and LAN/WAN setup.', href: ROUTES.SERVICES, isHighlighted: true },
-  { icon: Headphones, title: 'IT Support', description: '24×7 helpdesk and onsite IT support for businesses.', href: ROUTES.SERVICES },
-  { icon: Database, title: 'AMC Services', description: 'Annual Maintenance Contracts for worry-free IT infrastructure.', href: ROUTES.CORPORATE },
-  { icon: Users, title: 'Corporate IT', description: 'Enterprise bulk rentals, office setup, and managed IT services.', href: ROUTES.CORPORATE, isHighlighted: true },
+  { icon: Laptop, title: 'Laptop Rental', description: 'Rent business laptops from Dell, HP, and Lenovo on daily, weekly, or monthly plans.', href: ROUTES.RENTAL, isHighlighted: true },
+  { icon: Monitor, title: 'Desktop Rental', description: 'Compact desktop rentals for offices, training labs, and exam centers.', href: ROUTES.RENTAL },
+  { icon: Apple, title: 'MacBook Rental', description: 'Rent MacBook Air M2 and MacBook Pro M3 for developers and creatives.', href: ROUTES.RENTAL, isHighlighted: true },
+  { icon: Gamepad2, title: 'Gaming Laptop Rental', description: 'RTX-powered laptops for events, product demos, and rendering tasks.', href: ROUTES.RENTAL },
+  { icon: Laptop, title: 'Laptop Sales', description: 'New laptops from leading brands with manufacturer warranty support.', href: ROUTES.SALES },
+  { icon: Monitor, title: 'Desktop Sales', description: 'Business desktop systems configured for reliable daily office use.', href: ROUTES.SALES },
+  { icon: Package, title: 'Refurbished Systems', description: 'Tested Grade A refurbished business laptops with Cloud Tech warranty.', href: ROUTES.SALES },
+  { icon: Layers, title: 'Accessories & Peripherals', description: 'Monitors, wireless keyboards, headsets, storage drives, routers, and cables.', href: ROUTES.ACCESSORIES },
+  { icon: Wrench, title: 'Laptop & Desktop Repair', description: 'Hardware diagnostics, part replacements, and performance upgrades.', href: ROUTES.SERVICES, isHighlighted: true },
+  { icon: ShieldCheck, title: 'Virus & Malware Removal', description: 'System cleanup, security hardening, and endpoint protection setup.', href: ROUTES.SERVICES },
+  { icon: HardDrive, title: 'Data Recovery', description: 'Diagnostic recovery support for failing hard drives and SSDs.', href: ROUTES.SERVICES },
+  { icon: Settings, title: 'Software Installation', description: 'Operating system setup and essential business software configuration.', href: ROUTES.SERVICES },
+  { icon: Wifi, title: 'Networking & Wi-Fi', description: 'Office Wi-Fi planning, router/switch setup, and LAN configuration.', href: ROUTES.SERVICES, isHighlighted: true },
+  { icon: Headphones, title: 'Technical Support', description: 'Responsive remote and on-site IT support across Coimbatore.', href: ROUTES.SERVICES },
+  { icon: Database, title: 'AMC Services', description: 'Annual Maintenance Contracts for consistent preventive care.', href: ROUTES.CORPORATE },
+  { icon: Users, title: 'Corporate IT Setup', description: 'Team device rentals, workstation setup, and ongoing office IT support.', href: ROUTES.CORPORATE, isHighlighted: true },
 ];
 
 export function ServicesSection() {
@@ -78,7 +78,7 @@ export function ServicesSection() {
         eyebrow="What We Offer"
         title="Complete IT Solutions"
         titleHighlight="Under One Roof"
-        description="From laptop rentals and computer sales to IT repairs, networking, and enterprise support — Cloud Tech is your one-stop technology partner in Coimbatore."
+        description="From laptop rentals and computer sales to IT repairs, networking, and AMC support — Cloud Tech is your practical technology partner in Coimbatore."
       />
 
       <motion.div

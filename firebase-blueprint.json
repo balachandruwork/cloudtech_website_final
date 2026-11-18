@@ -1,0 +1,195 @@
+{
+  "entities": {
+    "ContactEnquiry": {
+      "title": "ContactEnquiry",
+      "description": "Customer contact and general service enquiry submitted from the Cloud Tech Contact page.",
+      "type": "object",
+      "properties": {
+        "referenceId": {
+          "type": "string",
+          "description": "Client-generated enquiry reference ID (e.g., CT-...).",
+          "minLength": 4,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the enquirer.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "company": {
+          "type": "string",
+          "description": "Optional company or organization name.",
+          "minLength": 0,
+          "maxLength": 200
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number.",
+          "minLength": 10,
+          "maxLength": 15,
+          "pattern": "^[+\\d\\s\\-()]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address.",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "service": {
+          "type": "string",
+          "description": "Selected service category identifier.",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "message": {
+          "type": "string",
+          "description": "Enquiry details and requirements.",
+          "minLength": 10,
+          "maxLength": 2000
+        },
+        "consent": {
+          "type": "boolean",
+          "description": "Explicit user consent to be contacted by Cloud Tech."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when enquiry was submitted."
+        }
+      },
+      "required": ["referenceId", "name", "phone", "email", "service", "message", "consent", "createdAt"]
+    },
+    "QuoteRequest": {
+      "title": "QuoteRequest",
+      "description": "Structured hardware rental or purchase quotation request submitted by a prospective customer.",
+      "type": "object",
+      "properties": {
+        "quoteId": {
+          "type": "string",
+          "description": "Client-generated quote reference ID (e.g., QT-...).",
+          "minLength": 4,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Customer full name.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "company": {
+          "type": "string",
+          "description": "Optional company name.",
+          "minLength": 0,
+          "maxLength": 200
+        },
+        "phone": {
+          "type": "string",
+          "description": "Customer phone number.",
+          "minLength": 10,
+          "maxLength": 15,
+          "pattern": "^[+\\d\\s\\-()]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Customer email address.",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "deviceType": {
+          "type": "string",
+          "description": "Requested device or hardware category.",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "Number of units requested (1 to 10000)."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Rental or purchase duration.",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "requirements": {
+          "type": "string",
+          "description": "Optional configuration, software, or delivery notes.",
+          "minLength": 0,
+          "maxLength": 1000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when quote request was submitted."
+        }
+      },
+      "required": ["quoteId", "name", "phone", "email", "deviceType", "quantity", "duration", "createdAt"]
+    },
+    "NewsletterIndex": {
+      "title": "NewsletterIndex",
+      "description": "PII-free deduplication index keyed by SHA-256 hash of normalized subscriber email.",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "Whether the hashed email subscription is active."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of initial subscription."
+        }
+      },
+      "required": ["active", "createdAt"]
+    },
+    "NewsletterSubscriber": {
+      "title": "NewsletterSubscriber",
+      "description": "Newsletter subscriber PII record isolated from public reads.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Subscriber email address.",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "source": {
+          "type": "string",
+          "description": "Origin component of subscription (e.g., footer).",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of subscription."
+        }
+      },
+      "required": ["email", "source", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/contactEnquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/ContactEnquiry" },
+      "description": "Stores customer contact enquiries. Public create with strict validation; admin-only read."
+    },
+    "/quoteRequests/{quoteId}": {
+      "schema": { "$ref": "#/entities/QuoteRequest" },
+      "description": "Stores hardware quotation requests. Public create with strict validation; admin-only read."
+    },
+    "/newsletterIndex/{subscriberKey}": {
+      "schema": { "$ref": "#/entities/NewsletterIndex" },
+      "description": "PII-free deduplication marker for newsletter signups. Single-doc get allowed for duplicate check; list denied."
+    },
+    "/newsletterSubscribers/{subscriberKey}": {
+      "schema": { "$ref": "#/entities/NewsletterSubscriber" },
+      "description": "Stores subscriber email addresses atomically with newsletterIndex. Admin-only read."
+    }
+  }
+}

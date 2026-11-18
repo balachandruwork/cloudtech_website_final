@@ -13,7 +13,6 @@ interface MobileNavigationProps {
 export function MobileNavigation({ onClose }: MobileNavigationProps) {
   return (
     <div className="flex flex-col h-full">
-      {/* Nav Links */}
       <nav className="flex-1 p-4 space-y-1" aria-label="Mobile navigation">
         {NAV_ITEMS.map((item) => (
           <NavLink
@@ -45,23 +44,34 @@ export function MobileNavigation({ onClose }: MobileNavigationProps) {
         ))}
       </nav>
 
-      {/* Contact CTAs */}
       <div className="p-4 border-t border-border space-y-3">
-        <Link to={ROUTES.CONTACT} onClick={onClose}>
+        <Link to={`${ROUTES.CONTACT}?tab=quote`} onClick={onClose}>
           <Button variant="primary" size="lg" fullWidth>
             Get Free Quote
           </Button>
         </Link>
 
         <div className="grid grid-cols-3 gap-2">
-          <a
-            href={`tel:${COMPANY.phoneRaw}`}
-            className="flex flex-col items-center gap-1.5 p-3 bg-dark-50 rounded-xl hover:bg-dark-100 transition-colors"
-            aria-label={`Call ${COMPANY.phone}`}
-          >
-            <Phone className="h-5 w-5 text-primary-600" aria-hidden="true" />
-            <span className="text-xs font-medium text-dark-700">Call Us</span>
-          </a>
+          {COMPANY.hasDirectPhone ? (
+            <a
+              href={`tel:${COMPANY.phoneRaw}`}
+              className="flex flex-col items-center gap-1.5 p-3 bg-dark-50 rounded-xl hover:bg-dark-100 transition-colors"
+              aria-label={`Call ${COMPANY.phone}`}
+            >
+              <Phone className="h-5 w-5 text-primary-600" aria-hidden="true" />
+              <span className="text-xs font-medium text-dark-700">Call Us</span>
+            </a>
+          ) : (
+            <Link
+              to={ROUTES.CONTACT}
+              onClick={onClose}
+              className="flex flex-col items-center gap-1.5 p-3 bg-dark-50 rounded-xl hover:bg-dark-100 transition-colors"
+              aria-label="Contact Cloud Tech"
+            >
+              <Phone className="h-5 w-5 text-primary-600" aria-hidden="true" />
+              <span className="text-xs font-medium text-dark-700">Contact</span>
+            </Link>
+          )}
           <a
             href={getWhatsAppUrl(WHATSAPP_MESSAGES.generic)}
             target="_blank"

@@ -7,6 +7,8 @@ import { ServicesSection } from '@/components/home/ServicesSection';
 import { RentalProductsSection } from '@/components/home/RentalProductsSection';
 import { FeaturedProductsSection } from '@/components/home/FeaturedProductsSection';
 import { WhyChooseUsSection } from '@/components/home/WhyChooseUsSection';
+import { TestimonialsSection } from '@/components/home/TestimonialsSection';
+import { FaqSection } from '@/components/home/FaqSection';
 
 export default function HomePage() {
   return (
@@ -23,6 +25,8 @@ export default function HomePage() {
       <RentalProductsSection />
       <FeaturedProductsSection />
       <WhyChooseUsSection />
+      <TestimonialsSection />
+      <FaqSection />
     </>
   );
 }

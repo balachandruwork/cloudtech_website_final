@@ -1,32 +1,38 @@
-// Company constants — single source of truth for all contact info
-// Update this file when contact details change; components read from here
+// Company constants — single source of truth for Cloud Tech business details
+
+const envPhone = (import.meta.env.VITE_PHONE_NUMBER as string | undefined)?.trim() || '';
+const envWhatsapp = (import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined)?.trim() || '';
+const envEmail = (import.meta.env.VITE_CONTACT_EMAIL as string | undefined)?.trim() || 'info@cloudtech.in';
+const envSiteUrl = (import.meta.env.VITE_SITE_URL as string | undefined)?.trim() || 'https://www.cloudtech.in';
+
+const rawPhoneDigits = envPhone.replace(/[^\d+]/g, '');
+const rawWhatsappDigits = envWhatsapp.replace(/\D/g, '');
 
 export const COMPANY = {
   name: 'Cloud Tech',
-  legalName: 'Cloud Tech Laptop Rental Service',
-  tagline: 'Laptop Rental Service',
+  legalName: 'Cloud Tech',
+  tagline: 'Laptop Rental, Computer Sales & IT Services',
   description:
-    'Cloud Tech delivers affordable laptop rentals, desktop rentals, MacBook rentals, computer sales, IT infrastructure, networking, AMC services, repairs, and enterprise IT support for businesses, startups, educational institutions, and individuals.',
-  shortDescription: 'Laptop Rental, Computer Sales & Professional IT Services in Coimbatore',
+    'Established in 2023 in Coimbatore, Cloud Tech delivers laptop and desktop rentals, new and refurbished computer sales, accessories, repairs, networking, and managed IT support for businesses, startups, event organizers, and individuals.',
+  shortDescription: 'Laptop Rental, Computer Sales & IT Services in Coimbatore',
 
-  // Contact
-  phone: '+91-XXXXXXXXXX',
-  phoneRaw: '91XXXXXXXXXX', // for tel: links
-  whatsapp: '+91-XXXXXXXXXX',
-  whatsappRaw: '91XXXXXXXXXX', // for wa.me links
-  email: 'info@cloudtech.in',
+  // Contact (configurable via environment variables when phone/WhatsApp lines are provisioned)
+  hasDirectPhone: Boolean(rawPhoneDigits),
+  phone: envPhone || 'Contact Desk (Coimbatore)',
+  phoneRaw: rawPhoneDigits,
+  hasWhatsappNumber: Boolean(rawWhatsappDigits),
+  whatsapp: envWhatsapp || 'WhatsApp Enquiry',
+  whatsappRaw: rawWhatsappDigits,
+  email: envEmail,
   emailSupport: 'support@cloudtech.in',
   emailSales: 'sales@cloudtech.in',
 
   // Address
   address: {
-    street: 'No. XX, XXX Street',
-    area: 'XXXXXXX',
     city: 'Coimbatore',
     state: 'Tamil Nadu',
     country: 'India',
-    pincode: '600XXX',
-    full: 'No. XX, XXX Street, XXXXXXX, Coimbatore, Tamil Nadu - 600XXX',
+    full: 'Coimbatore, Tamil Nadu, India',
     mapLink: 'https://maps.google.com/?q=Coimbatore,Tamil+Nadu,India',
   },
 
@@ -37,44 +43,46 @@ export const COMPANY = {
     { day: 'Sunday', hours: 'Closed', isOpen: false },
   ],
 
-  // Social Media
+  // Official Social Media Profiles (populate via VITE_SOCIAL_* env vars when active)
   social: {
-    facebook: 'https://www.facebook.com/cloudtech',
-    instagram: 'https://www.instagram.com/cloudtech',
-    twitter: 'https://www.twitter.com/cloudtech',
-    linkedin: 'https://www.linkedin.com/company/cloudtech',
-    youtube: 'https://www.youtube.com/@cloudtech',
+    facebook: (import.meta.env.VITE_SOCIAL_FACEBOOK as string | undefined)?.trim() || '',
+    instagram: (import.meta.env.VITE_SOCIAL_INSTAGRAM as string | undefined)?.trim() || '',
+    twitter: (import.meta.env.VITE_SOCIAL_TWITTER as string | undefined)?.trim() || '',
+    linkedin: (import.meta.env.VITE_SOCIAL_LINKEDIN as string | undefined)?.trim() || '',
+    youtube: (import.meta.env.VITE_SOCIAL_YOUTUBE as string | undefined)?.trim() || '',
   },
 
-  // Brand
-  founded: 2014,
-  yearsOfExperience: 10,
+  // Verified Business Profile
+  founded: 2023,
+  yearsOfExperienceLabel: '3–4 Years',
+  customerBaseLabel: '3–4 Customers',
 
   // Domain
-  siteUrl: 'https://www.cloudtech.in',
+  siteUrl: envSiteUrl,
   domain: 'cloudtech.in',
 } as const;
 
-// WhatsApp helpers
-export const WHATSAPP_BASE = `https://wa.me/${COMPANY.whatsappRaw}`;
-
+// WhatsApp helper — uses dedicated business number when configured, or pre-filled WhatsApp share composer
 export function getWhatsAppUrl(message: string): string {
-  return `${WHATSAPP_BASE}?text=${encodeURIComponent(message)}`;
+  const encoded = encodeURIComponent(message);
+  return COMPANY.whatsappRaw
+    ? `https://wa.me/${COMPANY.whatsappRaw}?text=${encoded}`
+    : `https://wa.me/?text=${encoded}`;
 }
 
 export const WHATSAPP_MESSAGES = {
-  generic: `Hello Cloud Tech! 👋\n\nI'm interested in your services. Please contact me with more details.\n\nThank you!`,
+  generic: `Hello Cloud Tech!\n\nI'm interested in your laptop rental, sales, or IT services in Coimbatore. Please share more details.\n\nThank you!`,
 
   rentalEnquiry: (productName?: string) =>
-    `Hello Cloud Tech! 👋\n\nI'm interested in renting${productName ? ` a ${productName}` : ' a laptop/computer'}.\n\nCould you please share pricing and availability?\n\nThank you!`,
+    `Hello Cloud Tech!\n\nI'm interested in renting${productName ? ` a ${productName}` : ' a laptop/computer'}.\n\nCould you please share availability and rental terms?\n\nThank you!`,
 
   salesEnquiry: (productName?: string) =>
-    `Hello Cloud Tech! 👋\n\nI'm interested in buying${productName ? ` a ${productName}` : ' a laptop/computer'}.\n\nCould you please share details and pricing?\n\nThank you!`,
+    `Hello Cloud Tech!\n\nI'm interested in buying${productName ? ` a ${productName}` : ' a laptop/computer'}.\n\nCould you please share availability, warranty details, and pricing?\n\nThank you!`,
 
-  corporateEnquiry: `Hello Cloud Tech! 👋\n\nWe are looking for corporate IT solutions including bulk rentals, office IT setup, and managed IT services.\n\nPlease share a corporate proposal.\n\nThank you!`,
+  corporateEnquiry: `Hello Cloud Tech!\n\nWe are looking for business IT solutions including team laptop rentals, office IT setup, networking, or AMC support.\n\nPlease share a proposal.\n\nThank you!`,
 
   serviceEnquiry: (serviceName?: string) =>
-    `Hello Cloud Tech! 👋\n\nI need assistance with${serviceName ? ` ${serviceName}` : ' IT repair/support services'}.\n\nCould you please guide me with the process?\n\nThank you!`,
+    `Hello Cloud Tech!\n\nI need assistance with${serviceName ? ` ${serviceName}` : ' IT repair or technical support'}.\n\nCould you please share the next steps?\n\nThank you!`,
 
-  quoteRequest: `Hello Cloud Tech! 👋\n\nI would like to request a free quote for your services.\n\nPlease contact me with more details.\n\nThank you!`,
+  quoteRequest: `Hello Cloud Tech!\n\nI would like to request a quote for your hardware rental or IT services.\n\nPlease get in touch with me.\n\nThank you!`,
 } as const;

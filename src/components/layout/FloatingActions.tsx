@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Mail, ArrowUp } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { COMPANY, getWhatsAppUrl, WHATSAPP_MESSAGES } from '@/constants/company';
+import { ROUTES } from '@/constants/routes';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 
 interface FloatingActionButtonProps {
@@ -9,12 +11,13 @@ interface FloatingActionButtonProps {
   label: string;
   onClick?: () => void;
   href?: string;
+  to?: string;
   className?: string;
   isExternal?: boolean;
   pulse?: boolean;
 }
 
-function FAB({ icon, label, onClick, href, className, isExternal, pulse }: FloatingActionButtonProps) {
+function FAB({ icon, label, onClick, href, to, className, isExternal, pulse }: FloatingActionButtonProps) {
   const baseClasses = cn(
     'relative w-12 h-12 rounded-full flex items-center justify-center shadow-card-lg',
     'transition-all duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-white focus-visible:ring-offset-2',
@@ -28,12 +31,19 @@ function FAB({ icon, label, onClick, href, className, isExternal, pulse }: Float
         <span className="absolute inset-0 rounded-full animate-ping opacity-30 bg-current" aria-hidden="true" />
       )}
       <span aria-hidden="true">{icon}</span>
-      {/* Tooltip */}
       <span className="absolute right-14 top-1/2 -translate-y-1/2 bg-dark-900 text-white text-xs font-medium px-2.5 py-1 rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
         {label}
       </span>
     </>
   );
+
+  if (to) {
+    return (
+      <Link to={to} aria-label={label} className={baseClasses}>
+        {content}
+      </Link>
+    );
+  }
 
   if (href) {
     return (
@@ -68,7 +78,6 @@ export function FloatingActions() {
       className="fixed bottom-6 right-4 sm:right-6 z-30 flex flex-col items-end gap-3"
       aria-label="Quick contact actions"
     >
-      {/* Back to Top */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.div
@@ -87,7 +96,6 @@ export function FloatingActions() {
         )}
       </AnimatePresence>
 
-      {/* Email */}
       <FAB
         icon={<Mail className="h-5 w-5" />}
         label={`Email: ${COMPANY.email}`}
@@ -95,15 +103,22 @@ export function FloatingActions() {
         className="bg-primary-600 text-white hover:bg-primary-700"
       />
 
-      {/* Phone */}
-      <FAB
-        icon={<Phone className="h-5 w-5" />}
-        label={`Call: ${COMPANY.phone}`}
-        href={`tel:${COMPANY.phoneRaw}`}
-        className="bg-navy-600 text-white hover:bg-navy-700"
-      />
+      {COMPANY.hasDirectPhone ? (
+        <FAB
+          icon={<Phone className="h-5 w-5" />}
+          label={`Call: ${COMPANY.phone}`}
+          href={`tel:${COMPANY.phoneRaw}`}
+          className="bg-navy-600 text-white hover:bg-navy-700"
+        />
+      ) : (
+        <FAB
+          icon={<Phone className="h-5 w-5" />}
+          label="Contact / Request Quote"
+          to={ROUTES.CONTACT}
+          className="bg-navy-600 text-white hover:bg-navy-700"
+        />
+      )}
 
-      {/* WhatsApp */}
       <FAB
         icon={
           <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

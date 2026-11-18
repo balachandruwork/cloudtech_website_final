@@ -78,15 +78,26 @@ export function Header() {
 
             {/* Header CTAs */}
             <div className="hidden lg:flex items-center gap-2">
-              <a
-                href={`tel:${COMPANY.phoneRaw}`}
-                className="flex items-center gap-1.5 text-sm font-medium text-dark-700 hover:text-primary-600 transition-colors px-3 py-2 rounded-lg hover:bg-primary-50"
-                aria-label={`Call us at ${COMPANY.phone}`}
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                <span className="hidden xl:inline">{COMPANY.phone}</span>
-                <span className="xl:hidden">Call</span>
-              </a>
+              {COMPANY.hasDirectPhone ? (
+                <a
+                  href={`tel:${COMPANY.phoneRaw}`}
+                  className="flex items-center gap-1.5 text-sm font-medium text-dark-700 hover:text-primary-600 transition-colors px-3 py-2 rounded-lg hover:bg-primary-50"
+                  aria-label={`Call us at ${COMPANY.phone}`}
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  <span className="hidden xl:inline">{COMPANY.phone}</span>
+                  <span className="xl:hidden">Call</span>
+                </a>
+              ) : (
+                <Link
+                  to={ROUTES.CONTACT}
+                  className="flex items-center gap-1.5 text-sm font-medium text-dark-700 hover:text-primary-600 transition-colors px-3 py-2 rounded-lg hover:bg-primary-50"
+                  aria-label="Contact Cloud Tech by phone or enquiry"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  <span>Call / Desk</span>
+                </Link>
+              )}
               <a
                 href={getWhatsAppUrl(WHATSAPP_MESSAGES.quoteRequest)}
                 target="_blank"
@@ -97,7 +108,7 @@ export function Header() {
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
                 <span>WhatsApp</span>
               </a>
-              <Link to={ROUTES.CONTACT}>
+              <Link to={`${ROUTES.CONTACT}?tab=quote`}>
                 <Button size="sm" variant="primary">
                   Get Free Quote
                 </Button>
@@ -121,7 +132,6 @@ export function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Overlay */}
             <motion.div
               key="overlay"
               variants={overlayVariants}
@@ -132,7 +142,6 @@ export function Header() {
               onClick={() => setMobileOpen(false)}
               aria-hidden="true"
             />
-            {/* Drawer */}
             <motion.aside
               key="drawer"
               variants={mobileMenuVariants}
@@ -174,7 +183,6 @@ export function Header() {
   );
 }
 
-// Spacer so content isn't hidden under the fixed header
 export function HeaderSpacer() {
   return <div className="h-16 md:h-18" aria-hidden="true" />;
 }

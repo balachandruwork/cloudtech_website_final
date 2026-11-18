@@ -27,6 +27,30 @@ export function SEO({
     ? `${COMPANY.siteUrl}${canonical}`
     : COMPANY.siteUrl;
 
+  const localBusinessSchema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: COMPANY.name,
+    description: COMPANY.description,
+    foundingDate: String(COMPANY.founded),
+    url: COMPANY.siteUrl,
+    email: COMPANY.email,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: COMPANY.address.city,
+      addressRegion: COMPANY.address.state,
+      addressCountry: 'IN',
+    },
+    openingHoursSpecification: [
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '19:00' },
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '17:00' },
+    ],
+  };
+
+  if (COMPANY.hasDirectPhone) {
+    localBusinessSchema.telephone = COMPANY.phone;
+  }
+
   return (
     <Helmet>
       <title>{pageTitle}</title>
@@ -53,27 +77,7 @@ export function SEO({
 
       {/* Business Schema */}
       <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'LocalBusiness',
-          name: COMPANY.name,
-          description: COMPANY.description,
-          url: COMPANY.siteUrl,
-          telephone: COMPANY.phone,
-          email: COMPANY.email,
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: COMPANY.address.street,
-            addressLocality: COMPANY.address.city,
-            addressRegion: COMPANY.address.state,
-            postalCode: COMPANY.address.pincode,
-            addressCountry: 'IN',
-          },
-          openingHoursSpecification: [
-            { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '19:00' },
-            { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '17:00' },
-          ],
-        })}
+        {JSON.stringify(localBusinessSchema)}
       </script>
     </Helmet>
   );

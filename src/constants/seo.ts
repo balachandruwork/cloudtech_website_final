@@ -6,68 +6,68 @@ export const SEO_DEFAULTS = {
   titleTemplate: '%s | Cloud Tech — Laptop Rental & IT Services Coimbatore',
   defaultTitle: 'Cloud Tech — Laptop Rental, Computer Sales & IT Services | Coimbatore',
   defaultDescription:
-    'Cloud Tech provides affordable laptop rentals, desktop rentals, MacBook rentals, computer sales, IT repairs, networking, AMC, and enterprise IT support in Coimbatore, Tamil Nadu, India.',
+    'Established in 2023, Cloud Tech provides laptop rentals, desktop rentals, MacBook rentals, new and refurbished computer sales, IT repairs, networking, and AMC support in Coimbatore, Tamil Nadu.',
   siteUrl: COMPANY.siteUrl,
-  ogImage: `${COMPANY.siteUrl}/images/og-default.jpg`,
+  ogImage: `${COMPANY.siteUrl}/assets/aistudio/New_Logo_31ad2fb6.png`,
   twitterHandle: '@cloudtech',
   locale: 'en_IN',
   keywords:
-    'laptop rental Coimbatore, computer rental, MacBook rental, IT support Coimbatore, laptop repair, desktop rental, gaming laptop rental, corporate IT, annual maintenance contract, networking Coimbatore',
+    'laptop rental Coimbatore, computer rental Coimbatore, MacBook rental, IT support Coimbatore, laptop repair, desktop rental, refurbished laptop Coimbatore, networking Coimbatore, AMC services',
 } as const;
 
 export const PAGE_SEO = {
   home: {
     title: 'Cloud Tech — Laptop Rental, Computer Sales & IT Services | Coimbatore',
     description:
-      'Cloud Tech delivers affordable laptop rentals, desktop rentals, MacBook rentals, computer sales, IT infrastructure, networking, AMC services, repairs, and enterprise IT support in Coimbatore.',
+      'Established in 2023 in Coimbatore, Cloud Tech offers laptop rentals, desktop and MacBook rentals, new & refurbished sales, accessories, IT repairs, networking, and AMC support.',
     keywords: 'laptop rental Coimbatore, laptop on rent, computer rental service Coimbatore',
   },
   about: {
     title: 'About Cloud Tech',
     description:
-      'Learn about Cloud Tech — Coimbatore\'s trusted provider of laptop rentals, computer sales, and professional IT services since 2014.',
+      'Learn about Cloud Tech — established in 2023 in Coimbatore to provide reliable laptop rentals, computer sales, and practical IT support for businesses and individuals.',
     keywords: 'about Cloud Tech Coimbatore, laptop rental company Coimbatore',
   },
   rental: {
     title: 'Laptop & Computer Rental Services',
     description:
-      'Rent laptops, desktops, MacBooks, gaming laptops, workstations, printers, and servers. Flexible daily, weekly, and monthly plans. Free delivery in Coimbatore.',
+      'Rent business laptops, gaming laptops, MacBooks, and desktops on daily, weekly, or monthly plans in Coimbatore.',
     keywords: 'laptop rental Coimbatore, MacBook rental, gaming laptop rent, desktop computer rental',
   },
   sales: {
     title: 'Buy Laptops, Desktops & Computers',
     description:
-      'Buy new and refurbished laptops, desktops, MacBooks, gaming PCs, and accessories at best prices in Coimbatore. Genuine products with warranty.',
+      'Buy new and certified refurbished laptops, desktops, MacBooks, and gaming laptops with warranty support in Coimbatore.',
     keywords: 'buy laptop Coimbatore, desktop computer sale, refurbished laptop Coimbatore',
   },
   services: {
     title: 'IT Repair & Technical Services',
     description:
-      'Professional laptop repair, desktop repair, virus removal, data recovery, software installation, networking, and IT support services in Coimbatore.',
+      'Laptop and desktop repair, data recovery, virus removal, software setup, networking, Wi-Fi installation, and AMC services in Coimbatore.',
     keywords: 'laptop repair Coimbatore, IT support, data recovery Coimbatore, virus removal',
   },
   corporate: {
-    title: 'Corporate IT Solutions & Enterprise Services',
+    title: 'Corporate IT Solutions & Team Rentals',
     description:
-      'Enterprise IT solutions including bulk laptop rental, office IT setup, networking, server installation, managed IT services, and AMC in Coimbatore.',
-    keywords: 'corporate laptop rental Coimbatore, enterprise IT solutions, office IT setup Coimbatore',
+      'Team and bulk laptop rentals, office IT setup, Wi-Fi networking, and Annual Maintenance Contracts (AMC) in Coimbatore.',
+    keywords: 'corporate laptop rental Coimbatore, office IT setup Coimbatore, IT AMC Coimbatore',
   },
   accessories: {
     title: 'Computer Accessories & Networking Equipment',
     description:
-      'Shop keyboards, mice, monitors, headsets, networking equipment, and more computer accessories at Cloud Tech Coimbatore.',
+      'Keyboards, mice, business monitors, headsets, routers, switches, storage drives, and power accessories available at Cloud Tech Coimbatore.',
     keywords: 'computer accessories Coimbatore, networking equipment, laptop accessories',
   },
   blog: {
-    title: 'IT Blog & Tech News',
+    title: 'IT Blog & Company Updates',
     description:
-      'Stay updated with the latest IT tips, laptop rental guides, technology news, and professional IT advice from Cloud Tech.',
-    keywords: 'IT blog Coimbatore, laptop rental guide, technology news India',
+      'Practical technology guides, laptop rental insights, buying advice, and company updates from Cloud Tech in Coimbatore.',
+    keywords: 'IT blog Coimbatore, laptop rental guide, refurbished laptop buying guide',
   },
   contact: {
     title: 'Contact Cloud Tech',
     description:
-      'Get in touch with Cloud Tech for laptop rentals, computer sales, IT support, repair services, and corporate enquiries. Call, WhatsApp, or email us.',
+      'Contact Cloud Tech in Coimbatore for laptop rentals, computer sales, IT repair, or a tailored hardware quotation.',
     keywords: 'contact Cloud Tech Coimbatore, laptop rental enquiry, IT support contact',
   },
 } as const;

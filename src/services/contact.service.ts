@@ -1,5 +1,6 @@
-import { sleep } from '@/lib/utils';
-import type { ContactFormData } from '@/schemas/contact.schema';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { db, handleFirestoreError, OperationType } from '@/lib/firebase';
+import { contactSchema, type ContactFormData } from '@/schemas/contact.schema';
 
 export interface ContactSubmissionResult {
   success: boolean;
@@ -7,23 +8,37 @@ export interface ContactSubmissionResult {
   referenceId?: string;
 }
 
-// When backend is ready, replace this with a real API call using apiClient
 export async function submitContactForm(
-  data: ContactFormData
+  rawData: ContactFormData
 ): Promise<ContactSubmissionResult> {
-  // Simulate API call delay
-  await sleep(1500);
+  const parsed = contactSchema.parse(rawData);
+  const referenceId = `CT-${Date.now()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+  const path = `contactEnquiries/${referenceId}`;
 
-  // TODO: Replace with actual API integration
-  // const response = await apiClient.post('/contact', data);
-  // return response.data;
-
-  console.info('Contact form submitted:', data);
-
-  return {
-    success: true,
-    message:
-      'Thank you for contacting Cloud Tech! Our team will reach out to you within 24 hours.',
-    referenceId: `CT-${Date.now()}`,
+  const payload: Record<string, unknown> = {
+    referenceId,
+    name: parsed.name,
+    phone: parsed.phone,
+    email: parsed.email.toLowerCase(),
+    service: parsed.service,
+    message: parsed.message,
+    consent: true,
+    createdAt: serverTimestamp(),
   };
+
+  if (parsed.company && parsed.company.length > 0) {
+    payload.company = parsed.company;
+  }
+
+  try {
+    await setDoc(doc(db, 'contactEnquiries', referenceId), payload);
+    return {
+      success: true,
+      message:
+        'Thank you for contacting Cloud Tech! Our team in Coimbatore will review your enquiry and get back to you shortly.',
+      referenceId,
+    };
+  } catch (error) {
+    handleFirestoreError(error, OperationType.CREATE, path);
+  }
 }

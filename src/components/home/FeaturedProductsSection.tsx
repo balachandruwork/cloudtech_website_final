@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Zap, ShieldCheck } from 'lucide-react';
@@ -5,6 +6,7 @@ import { SectionContainer } from '@/components/common/SectionContainer';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ProductDetailModal } from '@/components/catalog/ProductDetailModal';
 import { PRODUCTS } from '@/data/products.data';
 import { ROUTES } from '@/constants/routes';
 import { getWhatsAppUrl, WHATSAPP_MESSAGES } from '@/constants/company';
@@ -12,7 +14,13 @@ import { formatPrice, calcDiscount } from '@/lib/utils';
 import { fadeUp, staggerFast, viewportOnce } from '@/lib/animations';
 import type { Product } from '@/types/product.types';
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({
+  product,
+  onSelect,
+}: {
+  product: Product;
+  onSelect: (product: Product) => void;
+}) {
   const discount = product.originalPrice
     ? calcDiscount(product.originalPrice, product.price)
     : 0;
@@ -20,7 +28,12 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <div className="card-base card-hover flex flex-col overflow-hidden group">
       {/* Image */}
-      <div className="relative aspect-[4/3] bg-gradient-to-br from-dark-50 to-dark-100 overflow-hidden">
+      <button
+        type="button"
+        onClick={() => onSelect(product)}
+        className="relative aspect-[4/3] bg-gradient-to-br from-dark-50 to-dark-100 overflow-hidden text-left cursor-pointer"
+        aria-label={`View specifications for ${product.name}`}
+      >
         <img
           src={product.thumbnail}
           alt={product.name}
@@ -35,12 +48,18 @@ function ProductCard({ product }: { product: Product }) {
         <div className="absolute top-3 right-3">
           <Badge variant="navy">{product.brand}</Badge>
         </div>
-      </div>
+      </button>
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5">
         <div className="flex-1">
-          <h3 className="font-display font-semibold text-dark-900 text-base mb-1">{product.name}</h3>
+          <button
+            type="button"
+            onClick={() => onSelect(product)}
+            className="text-left font-display font-semibold text-dark-900 hover:text-primary-600 transition-colors text-base mb-1"
+          >
+            {product.name}
+          </button>
           <p className="text-xs text-dark-500 mb-3">{product.shortDescription}</p>
 
           {/* Key specs */}
@@ -86,7 +105,10 @@ function ProductCard({ product }: { product: Product }) {
               Buy Now
             </Button>
           </a>
-          <Link to={ROUTES.CONTACT} className="flex-1">
+          <Link
+            to={`${ROUTES.CONTACT}?tab=quote&device=${encodeURIComponent(product.name)}`}
+            className="flex-1"
+          >
             <Button variant="outline" size="sm" fullWidth>
               Enquire
             </Button>
@@ -98,6 +120,7 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export function FeaturedProductsSection() {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const featured = PRODUCTS.filter((p) => p.isFeatured).slice(0, 4);
 
   return (
@@ -106,7 +129,7 @@ export function FeaturedProductsSection() {
         eyebrow="Products for Sale"
         title="Buy New, Refurbished &"
         titleHighlight="Gaming Computers"
-        description="Shop genuine laptops, desktops, MacBooks, and gaming PCs at the best prices in Coimbatore. All products come with warranty and free technical support."
+        description="Shop tested new and refurbished laptops, desktops, MacBooks, and gaming laptops in Coimbatore with warranty and local technical support."
       />
 
       <motion.div
@@ -118,7 +141,7 @@ export function FeaturedProductsSection() {
       >
         {featured.map((product) => (
           <motion.div key={product.id} variants={fadeUp}>
-            <ProductCard product={product} />
+            <ProductCard product={product} onSelect={setSelectedProduct} />
           </motion.div>
         ))}
       </motion.div>
@@ -130,6 +153,11 @@ export function FeaturedProductsSection() {
           </Button>
         </Link>
       </div>
+
+      <ProductDetailModal
+        target={selectedProduct ? { mode: 'sales', item: selectedProduct } : null}
+        onClose={() => setSelectedProduct(null)}
+      />
     </SectionContainer>
   );
 }

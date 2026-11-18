@@ -5,19 +5,52 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ROUTES } from '@/constants/routes';
 import { COMPANY, getWhatsAppUrl, WHATSAPP_MESSAGES } from '@/constants/company';
+import { RENTAL_PRODUCTS } from '@/data/rentalProducts.data';
+import { formatPrice } from '@/lib/utils';
 import { fadeUp, slideInRight, staggerContainer } from '@/lib/animations';
 
 const TRUST_ITEMS = [
-  'Free Same-Day Delivery',
-  'Certified Technicians',
-  'Genuine Products with Warranty',
-  '24×7 Customer Support',
+  'Same-Day Coimbatore Delivery',
+  'Tested Hardware & Warranty',
+  'Flexible Daily to Monthly Plans',
+  'Direct Local Technical Support',
 ];
 
 const FLOATING_STATS = [
-  { label: 'Happy Clients', value: '5,000+', icon: '😊' },
-  { label: 'Devices Available', value: '1,000+', icon: '💻' },
-  { label: 'Corporate Clients', value: '300+', icon: '🏢' },
+  { label: 'Established', value: String(COMPANY.founded), icon: '📅' },
+  { label: 'Current Customers', value: '3–4', icon: '🤝' },
+  { label: 'Experience', value: COMPANY.yearsOfExperienceLabel, icon: '💻' },
+];
+
+const latitude = RENTAL_PRODUCTS.find((p) => p.id === 'r1');
+const macbookAir = RENTAL_PRODUCTS.find((p) => p.id === 'r4');
+const elitebook = RENTAL_PRODUCTS.find((p) => p.id === 'r2');
+
+const HERO_PREVIEW_ITEMS = [
+  {
+    label: latitude?.name ?? 'Dell Latitude 5540',
+    spec: 'i5 / 16GB / 512 SSD',
+    price: `${formatPrice(latitude?.pricing.monthly ?? 3000)}/mo`,
+    icon: Monitor,
+  },
+  {
+    label: macbookAir?.name ?? 'Apple MacBook Air M2',
+    spec: 'M2 / 8GB / 256 SSD',
+    price: `${formatPrice(macbookAir?.pricing.monthly ?? 3500)}/mo`,
+    icon: Cpu,
+  },
+  {
+    label: elitebook?.name ?? 'HP EliteBook 840',
+    spec: 'i7 / 16GB / 512 SSD',
+    price: `${formatPrice(elitebook?.pricing.monthly ?? 3500)}/mo`,
+    icon: Monitor,
+  },
+  {
+    label: 'Networking & AMC',
+    spec: 'Office Wi-Fi & IT Setup',
+    price: 'Custom Quote',
+    icon: Wifi,
+  },
 ];
 
 export function HeroSection() {
@@ -45,7 +78,7 @@ export function HeroSection() {
             {/* Eyebrow */}
             <motion.div variants={fadeUp}>
               <Badge variant="primary" className="bg-primary-500/20 text-primary-200 border-primary-500/30 text-sm py-1.5 px-4">
-                🏆 Coimbatore's #1 Laptop Rental & IT Services
+                Coimbatore IT Hardware &amp; Support · Est. {COMPANY.founded}
               </Badge>
             </motion.div>
 
@@ -62,9 +95,9 @@ export function HeroSection() {
 
             {/* Description */}
             <motion.p variants={fadeUp} className="text-lg text-dark-300 leading-relaxed max-w-xl">
-              Cloud Tech delivers affordable laptop rentals, desktop rentals, MacBook rentals,
-              computer sales, IT infrastructure, networking, AMC services, repairs, and enterprise
-              IT support — for businesses, startups, institutions, and individuals across Coimbatore.
+              Established in {COMPANY.founded}, Cloud Tech provides laptop and desktop rentals,
+              new and refurbished computer sales, accessories, repairs, Wi-Fi networking, and AMC
+              support for businesses, startups, event organizers, and individuals in Coimbatore.
             </motion.p>
 
             {/* Trust checkmarks */}
@@ -79,7 +112,7 @@ export function HeroSection() {
 
             {/* CTAs */}
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 pt-2">
-              <Link to={ROUTES.CONTACT}>
+              <Link to={`${ROUTES.CONTACT}?tab=quote`}>
                 <Button size="lg" variant="primary" rightIcon={<ArrowRight className="h-5 w-5" />}>
                   Get Free Quote
                 </Button>
@@ -106,15 +139,25 @@ export function HeroSection() {
 
             {/* Quick contact */}
             <motion.div variants={fadeUp} className="flex items-center gap-4 pt-1">
-              <a
-                href={`tel:${COMPANY.phoneRaw}`}
-                className="flex items-center gap-2 text-sm text-dark-400 hover:text-white transition-colors"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                {COMPANY.phone}
-              </a>
+              {COMPANY.hasDirectPhone ? (
+                <a
+                  href={`tel:${COMPANY.phoneRaw}`}
+                  className="flex items-center gap-2 text-sm text-dark-400 hover:text-white transition-colors"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  {COMPANY.phone}
+                </a>
+              ) : (
+                <Link
+                  to={ROUTES.CONTACT}
+                  className="flex items-center gap-2 text-sm text-dark-400 hover:text-white transition-colors"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  {COMPANY.email}
+                </Link>
+              )}
               <span className="text-dark-600" aria-hidden="true">|</span>
-              <span className="text-xs text-dark-500">Mon–Sat, 9AM–7PM</span>
+              <span className="text-xs text-dark-400">Mon–Fri 9AM–7PM · Sat 9AM–5PM</span>
             </motion.div>
           </motion.div>
 
@@ -126,11 +169,8 @@ export function HeroSection() {
             className="relative hidden lg:block"
             aria-hidden="true"
           >
-            {/* Main visual card */}
             <div className="relative">
-              {/* Device mockup */}
               <div className="relative bg-gradient-to-br from-dark-800 to-dark-900 rounded-2xl p-6 border border-dark-700 shadow-card-xl">
-                {/* Browser bar */}
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex gap-1.5">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -138,18 +178,13 @@ export function HeroSection() {
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="flex-1 h-6 bg-dark-700 rounded-md flex items-center px-3">
-                    <span className="text-xs text-dark-400 font-mono">cloudtech.in</span>
+                    <span className="text-xs text-dark-400 font-mono">{COMPANY.domain}</span>
                   </div>
                 </div>
 
-                {/* Product display */}
+                {/* Product display synced with actual rental catalog prices */}
                 <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { label: 'Dell Latitude', spec: 'i5 / 16GB / 512 SSD', price: '₹7,999/mo', icon: Monitor },
-                    { label: 'MacBook Air M2', spec: 'M2 / 8GB / 256 SSD', price: '₹12,999/mo', icon: Cpu },
-                    { label: 'HP EliteBook', spec: 'i7 / 16GB / 512 SSD', price: '₹9,499/mo', icon: Monitor },
-                    { label: 'Networking', spec: 'Office Wi-Fi Setup', price: 'Custom Quote', icon: Wifi },
-                  ].map((item) => (
+                  {HERO_PREVIEW_ITEMS.map((item) => (
                     <div key={item.label} className="bg-dark-700/60 rounded-xl p-3.5 border border-dark-600/50">
                       <item.icon className="h-5 w-5 text-primary-400 mb-2" />
                       <p className="text-xs font-semibold text-white">{item.label}</p>
@@ -167,8 +202,9 @@ export function HeroSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
-                  className={`absolute glass rounded-xl px-4 py-3 shadow-card-lg border border-white/10 ${i === 0 ? '-top-4 -left-6' : i === 1 ? '-bottom-4 left-6' : '-right-6 top-1/3'
-                    }`}
+                  className={`absolute glass rounded-xl px-4 py-3 shadow-card-lg border border-white/10 ${
+                    i === 0 ? '-top-4 -left-6' : i === 1 ? '-bottom-4 left-6' : '-right-6 top-1/3'
+                  }`}
                 >
                   <div className="text-lg">{stat.icon}</div>
                   <p className="text-sm font-bold text-dark-900">{stat.value}</p>
